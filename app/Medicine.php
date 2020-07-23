@@ -18,4 +18,8 @@ class Medicine extends Model
     protected $fillable = [
         'name', 'urlImage', 'description', 'dosage'
     ];
+
+    protected $hidden = [
+        'deleted_at'
+    ];
 }

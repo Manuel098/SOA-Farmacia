@@ -18,4 +18,8 @@ class Sale extends Model
     protected $fillable = [
         'amount', 'user_medicine_id',
     ];
+
+    protected $hidden = [
+        'deleted_at'
+    ];
 }

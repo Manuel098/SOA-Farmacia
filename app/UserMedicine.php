@@ -18,4 +18,8 @@ class UserMedicine extends Model
     protected $fillable = [
         'price', 'user_id', 'medicine_id'
     ];
+
+    protected $hidden = [
+        'deleted_at'
+    ];
 }

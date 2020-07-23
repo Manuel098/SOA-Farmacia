@@ -15,7 +15,7 @@ class UserMedicine extends Migration
     {
         Schema::create('user_medicines', function (Blueprint $table) {
             $table->id();
-            $table->float('price', 18, 10)->nullable();
+            $table->float('price', 18, 2)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('medicine_id');
             

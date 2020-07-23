@@ -15,7 +15,7 @@ class MakeSaleTable extends Migration
     {
         Schema::create('sale', function (Blueprint $table) {
             $table->id();
-            $table->float('amount', 18, 10)->nullable();
+            $table->float('amount', 18, 2)->nullable();
             $table->unsignedBigInteger('user_medicine_id');
 
             $table->foreign('user_medicine_id')->references('id')->on('user_medicines')->onDelete('cascade');
