@@ -20,6 +20,11 @@ class Sale extends Model
     ];
 
     protected $hidden = [
-        'deleted_at'
+        'deleted_at', 'user_medicine_id'
     ];
+    
+    public function userMedicine(){
+        return $this->hasOne('App\UserMedicine','id','user_medicine_id')
+            ->select('id', 'price', 'medicine_id', 'user_id');
+    }
 }

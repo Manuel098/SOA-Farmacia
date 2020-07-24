@@ -4,16 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use App\Medicine;
+use App\UserMedicine as UsMe;
 
-class MedicinesController extends Controller {
-    public function index() {
+class UserMedicinesController extends Controller {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index($id) {
         try{
-            $medicines = Medicine::all();
+            $usMe = UsMe::where('user_id', $id)
+            ->orderBy('price', 'asc')
+            ->with('user','medicine')
+            ->get();
         } catch(QueryException $e) {
             return response( $e->getMessage(), 501);
         }
-        return response($medicines, 201);
+        return response($usMe, 200);
     }
 
     /**
@@ -24,19 +32,18 @@ class MedicinesController extends Controller {
      */
     public function store(Request $request) {
         try {
-            if($request->name==null||$request->urlImage==null||$request->description==null||$request->dosage==null){
+            if($request->price==null||$request->user_id==null||$request->medicine_id==null){
                 return response('Need more data', 409);
             }
-            $medicine = new Medicine;
-            $medicine->name = $request->name;
-            $medicine->urlImage = $request->urlImage;
-            $medicine->description = $request->description;
-            $medicine->dosage = $request->dosage;
-            $medicine->save();
+            $usMe = new UsMe;
+            $usMe->price = $request->price;
+            $usMe->user_id = $request->user_id;
+            $usMe->medicine_id = $request->medicine_id;
+            $usMe->save();
         } catch(QueryException $e) {
             return response( $e->getMessage(), 501);
         }
-        return response('Medicamento creado', 201);
+        return response('Relacion creada', 201);
     }
 
     /**
@@ -47,11 +54,14 @@ class MedicinesController extends Controller {
      */
     public function show($ele, $val) {
         try{
-            $response = Medicine::where($ele,$val)->get();
+            $response = UsMe::where($ele,$val)
+            ->orderBy('price', 'asc')
+            ->with('user','medicine')
+            ->get();
         } catch(QueryException $e) {
             return response( $e->getMessage(), 501);
         }
-        return count($response) > 0? response($response, 200): response('No se encontro el medicamento', 404);
+        return count($response) > 0? response($response, 200): response('No se encontro el registro', 404);
     }
 
     /**
@@ -63,19 +73,17 @@ class MedicinesController extends Controller {
      */
     public function update(Request $request, $id) {
         try{
-            $medicine = Medicine::findOrFail($id);
-            if($request->name!=null){
-                $medicine->name = $request->name;
-            }if($request->urlImage!=null){
-                $medicine->urlImage = $request->urlImage;
-            }if($request->description!=null){
-                $medicine->description = $request->description;
-            }if($request->dosage!=null){
-                $medicine->dosage = $request->dosage;
+            $usMe = UsMe::findOrFail($id);
+            if($request->price!=null){
+                $usMe->price = $request->price;
+            }if($request->user_id!=null){
+                $usMe->user_id = $request->user_id;
+            }if($request->medicine_id!=null){
+                $usMe->medicine_id = $request->medicine_id;
             }
-            $medicine->save();
+            $usMe->save();
         }catch(Exception $e) {
-            response('No se encontro el medicamento', 404);
+            response('No se encontro el registro', 404);
         }
         return response('Actualización completa', 200);
     }
@@ -88,10 +96,10 @@ class MedicinesController extends Controller {
      */
     public function destroy($id) {
         try{
-            $medicine = Medicine::findOrFail($id);
-            $medicine->delete();
+            $usMe = UsMe::findOrFail($id);
+            $usMe->delete();
     
-            return response("El medicamento ha sido borrado",200);
+            return response("La relación ha sido borrado",200);
         } catch(QueryException $e) {
             return response( $e->getMessage(), 501);
         }
