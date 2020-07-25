@@ -52,16 +52,22 @@ class UserMedicinesController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ele, $val) {
+    public function show($ele, $val, $id) {
         try{
+            $Data= array();
             $response = UsMe::where($ele,$val)
             ->orderBy('price', 'asc')
             ->with('user','medicine')
             ->get();
+            foreach ($response as $medicine) {
+                if($medicine->user->id == $id){
+                    array_push($Data, $medicine);
+                }
+            }
         } catch(QueryException $e) {
             return response( $e->getMessage(), 501);
         }
-        return count($response) > 0? response($response, 200): response('No se encontro el registro', 404);
+        return count($response) > 0? response($Data, 200): response('No se encontro el registro', 404);
     }
 
     /**

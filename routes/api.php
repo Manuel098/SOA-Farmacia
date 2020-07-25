@@ -3,9 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+// User
+Route::POST('/signUp', 'Auth\RegisterController@register')->name('sign.Up');
+Route::POST('/signIn', 'Auth\LoginController@login')->name('sign.In');
+
     // Medicine Routes
     Route::resource('/medicine', 'MedicinesController')->except([
         'edit', 'create', 'show'
@@ -17,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         'edit', 'create', 'show', 'index'
     ]);
     Route::GET('/userMedicine/{value}', 'UserMedicinesController@index')->name('userMedicine.index');
-    Route::GET('/userMedicine/{element}/{value}', 'UserMedicinesController@show')->name('userMedicine.show');
+    Route::GET('/userMedicine/{element}/{value}/{user_id}', 'UserMedicinesController@show')->name('userMedicine.show');
     
     // Sales Routes
     Route::resource('/sale', 'SalesController')->except([
