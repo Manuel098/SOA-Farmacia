@@ -41,8 +41,6 @@ class LoginController extends Controller
 
     protected function sendLoginResponse(Request $request) {
 
-        $this->clearLoginAttempts($request);
-
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
