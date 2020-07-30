@@ -8,13 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Foundation\Auth\RedirectsUsers;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class LoginController extends Controller
 {
-    // use AuthenticatesUsers;
-    use RedirectsUsers, ThrottlesLogins;
 
     public function login(Request $request) {
         $this->validateLogin($request);
