@@ -15,8 +15,11 @@ David Ruedas Rivas
 
 Randy Sebastian Martinez
 
+### Modelo de datos
 
-## ¿Como se usa este servicio?
+<img src = "https://github.com/Manuel098/SOA-Farmacia/blob/master/modelo.png" width = "500">
+
+### ¿Como se usa este servicio?
 
 <img src = "https://github.com/Manuel098/SOA-Farmacia/blob/master/1.PNG" width = "500">
 <img src = "https://github.com/Manuel098/SOA-Farmacia/blob/master/2.PNG" width = "500">
