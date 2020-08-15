@@ -8,9 +8,12 @@
 
 ## Integrantes:
 
-Christian Antonio Avila Saucedo.
-José Manuel Valdez Gonzalez.
-David Ruedas Rivas.
+Christian Antonio Avila Saucedo
+
+José Manuel Valdez Gonzalez
+
+David Ruedas Rivas
+
 Randy Sebastian Martinez
 
 
